@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Little Mystery</title>
+<meta name="theme-color" content="#10172b">
+<style>
+:root{--night:#10172b;--cream:#f7f0df;--gold:#d8b875;--muted:#c7c2bb}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#273653 0%,var(--night) 60%);color:var(--cream);font-family:Georgia,'Times New Roman',serif;min-height:100vh;display:grid;place-items:center;padding:22px}
+.card{width:min(100%,620px);border:1px solid #d8b87588;border-radius:24px;padding:clamp(26px,6vw,54px);text-align:center;box-shadow:0 20px 80px #0005;background:#10172bdc;position:relative;overflow:hidden}
+.eyebrow{letter-spacing:.22em;text-transform:uppercase;font:11px Arial,sans-serif;color:var(--gold)}
+h1{font-size:clamp(38px,9vw,64px);font-weight:normal;line-height:1.03;margin:22px 0 16px}
+p{font-size:18px;line-height:1.65;color:#e7dfd0}.sub{font:13px Arial,sans-serif;color:var(--muted);line-height:1.6}
+input,button{font:16px Arial,sans-serif;border-radius:12px;padding:14px 16px;width:100%;margin-top:12px}
+input{background:#fffdf7;border:1px solid var(--gold);color:#151a29}button{background:var(--gold);color:#17192a;border:0;font-weight:bold;cursor:pointer}
+.note{font:12px Arial,sans-serif;color:#b9b8c3;margin-top:18px}.hidden{display:none}
+.stars{color:var(--gold);letter-spacing:.5em;font-size:14px}
+</style></head>
+<body><main class="card">
+<div class="stars">✦ · ✧ · ✦</div><div class="eyebrow">A small mystery, just for you</div>
+<section id="gate">
+<h1>A Little<br>Mystery</h1>
+<p>Some stories are too special to tell all at once.</p>
+<p class="sub">When the moment feels right, enter the secret word you were given.</p>
+<form id="unlock"><input id="pass" type="password" placeholder="Secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Unlock the little mystery</button></form>
+<div id="error" class="note"></div>
+</section>
+<section id="welcome" class="hidden">
+<h1>You're here. ♡</h1>
+<p>Every great story begins with the smallest clues.</p>
+<p>This little world is still being prepared, but it already has a few things that belong only to us.</p>
+<div class="stars">✦ · ✧ · ✦</div>
+<p class="sub">Come back soon. The next clue is on its way.</p>
+</section>
+<div class="note">Made with care, for one very special person.</div>
+</main>
+<script>
+// TEMPORARY DEMO GATE ONLY. This passcode is visible in the page source.
+// Do not add private photos or sensitive messages until server-side protection is deployed.
+const DEMO_PASSCODE = "PIGEON25";
+document.getElementById('unlock').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(document.getElementById('pass').value===DEMO_PASSCODE){
+  document.getElementById('gate').classList.add('hidden');
+  document.getElementById('welcome').classList.remove('hidden');
+ } else { document.getElementById('error').textContent='Not quite. Try the secret word again.'; }
+});
+</script></body></html>
