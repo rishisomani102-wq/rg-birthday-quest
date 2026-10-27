@@ -1,48 +1,106 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>A Little Mystery</title>
-<meta name="theme-color" content="#10172b">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A Little Mystery — RG's Birthday Quest</title>
+<meta name="theme-color" content="#E8F5E9">
 <style>
-:root{--night:#10172b;--cream:#f7f0df;--gold:#d8b875;--muted:#c7c2bb}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#273653 0%,var(--night) 60%);color:var(--cream);font-family:Georgia,'Times New Roman',serif;min-height:100vh;display:grid;place-items:center;padding:22px}
-.card{width:min(100%,620px);border:1px solid #d8b87588;border-radius:24px;padding:clamp(26px,6vw,54px);text-align:center;box-shadow:0 20px 80px #0005;background:#10172bdc;position:relative;overflow:hidden}
-.eyebrow{letter-spacing:.22em;text-transform:uppercase;font:11px Arial,sans-serif;color:var(--gold)}
-h1{font-size:clamp(38px,9vw,64px);font-weight:normal;line-height:1.03;margin:22px 0 16px}
-p{font-size:18px;line-height:1.65;color:#e7dfd0}.sub{font:13px Arial,sans-serif;color:var(--muted);line-height:1.6}
-input,button{font:16px Arial,sans-serif;border-radius:12px;padding:14px 16px;width:100%;margin-top:12px}
-input{background:#fffdf7;border:1px solid var(--gold);color:#151a29}button{background:var(--gold);color:#17192a;border:0;font-weight:bold;cursor:pointer}
-.note{font:12px Arial,sans-serif;color:#b9b8c3;margin-top:18px}.hidden{display:none}
-.stars{color:var(--gold);letter-spacing:.5em;font-size:14px}
-</style></head>
-<body><main class="card">
-<div class="stars">✦ · ✧ · ✦</div><div class="eyebrow">A small mystery, just for you</div>
-<section id="gate">
-<h1>A Little<br>Mystery</h1>
-<p>Some stories are too special to tell all at once.</p>
-<p class="sub">When the moment feels right, enter the secret word you were given.</p>
-<form id="unlock"><input id="pass" type="password" placeholder="Secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Unlock the little mystery</button></form>
-<div id="error" class="note"></div>
-</section>
-<section id="welcome" class="hidden">
-<h1>You're here. ♡</h1>
-<p>Every great story begins with the smallest clues.</p>
-<p>This little world is still being prepared, but it already has a few things that belong only to us.</p>
-<div class="stars">✦ · ✧ · ✦</div>
-<p class="sub">Come back soon. The next clue is on its way.</p>
-</section>
-<div class="note">Made with care, for one very special person.</div>
+:root{--green:#1B5E20;--soft:#E8F5E9;--accent:#A5D6A7;--paper:#fffdf8;--ink:#233126;--muted:#657468}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:18px;background:linear-gradient(145deg,#f4fbf4,#e3f2e5);color:var(--ink);font-family:Georgia,'Times New Roman',serif;display:grid;place-items:center}
+.card{width:min(100%,680px);padding:clamp(22px,5vw,42px);border:1px solid #a5d6a7;border-radius:26px;background:#ffffffed;box-shadow:0 16px 50px #234a2518;text-align:center}
+.eyebrow{font:11px Arial,sans-serif;letter-spacing:.17em;text-transform:uppercase;color:var(--green)}
+h1{font-size:clamp(30px,7vw,48px);line-height:1.1;color:var(--green);font-weight:normal;margin:16px 0}
+h2{font-size:clamp(23px,5vw,32px);line-height:1.2;color:var(--green);font-weight:normal;margin:14px 0}
+p{font-size:17px;line-height:1.65;margin:14px 0}
+.sub{font:13px Arial,sans-serif;color:var(--muted);line-height:1.6}
+input,button{font:16px Arial,sans-serif;border-radius:13px;padding:14px 16px;width:100%;margin-top:10px}
+input{background:white;border:1px solid var(--accent);color:var(--ink)}
+button{background:var(--green);color:white;border:0;font-weight:700;cursor:pointer;transition:transform .15s,opacity .15s}
+button:hover{opacity:.92}button:active{transform:scale(.99)}
+button.secondary{background:#eef7ee;color:var(--green);border:1px solid var(--accent)}
+.choices{display:grid;gap:10px;margin-top:18px}
+.choice{display:flex;gap:12px;align-items:center;text-align:left;background:#f7fbf7;color:var(--ink);border:1px solid #b8dabb;font-weight:500}
+.choice .letter{display:grid;place-items:center;flex:0 0 34px;height:34px;border-radius:50%;background:#e0f1e1;color:var(--green);font-weight:bold}
+.photo{margin:22px 0 8px;min-height:150px;border:2px dashed #a5d6a7;border-radius:18px;background:#f6fbf6;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;color:#3d7842;font:13px Arial,sans-serif;padding:18px}
+.photo .symbol{font-size:32px}.photo strong{font-size:14px}
+.note{font:12px Arial,sans-serif;color:var(--muted);margin-top:18px}
+.hidden{display:none!important}.feedback{margin-top:16px;padding:14px;border-radius:14px;background:#f0f8f0;color:var(--green);line-height:1.55}.feedback.wrong{background:#fff2f1;color:#a12d2d}
+.progress{font:12px Arial,sans-serif;color:var(--muted);margin-bottom:12px}
+.pill{display:inline-block;border-radius:99px;background:#e5f4e6;padding:6px 11px;font:11px Arial,sans-serif;letter-spacing:.06em;color:var(--green)}
+.memory{white-space:pre-line}
+@media(max-width:420px){body{padding:10px}.card{padding:22px 17px;border-radius:20px}.photo{min-height:125px}p{font-size:16px}}
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="eyebrow">✦ A small mystery, just for you ✦</div>
+  <section id="gate">
+    <h1>A Little Mystery</h1>
+    <p>Some stories are too special to tell all at once.</p>
+    <p class="sub">When the moment feels right, enter the secret word you were given.</p>
+    <form id="unlock"><input id="pass" type="password" placeholder="Secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Unlock the little mystery</button></form>
+    <div id="error" class="note" role="status"></div>
+  </section>
+  <section id="quest" class="hidden" aria-live="polite">
+    <div class="progress" id="progress"></div>
+    <div id="slide-content"></div>
+    <div id="feedback" class="feedback hidden" role="status"></div>
+    <div id="actions"></div>
+  </section>
+  <div class="note">Made with care, for one very special person. ♡</div>
 </main>
 <script>
-// TEMPORARY DEMO GATE ONLY. This passcode is visible in the page source.
+// TEMPORARY DEMO GATE ONLY. This passcode is visible in page source.
 // Do not add private photos or sensitive messages until server-side protection is deployed.
 const DEMO_PASSCODE = "PIGEON25";
+const slides = [
+ {type:"welcome",title:"THE ADVENTURE BEGINS",body:"today is a very special day. Today's the day when the world's most amazing creature was born. Today's the day when gods most wonderful creation came into existence. Today's the day when RG turns 25. And on this special day, his naya navela boyfriend decided to design a small quest for her to see if one month of dating increased any of her brain cells. So areeee youuu readyyyyyy?",options:["Yes","Definitely yes","Ye bhi koi poochne ki baat hai"]},
+ {type:"story",title:"THE ADVENTURE BEGINS",body:"RG is going to embark on a special journey with a secret treasure at the end. But before that here is a funny picture which has no relevance but CCL just think it's funny so it's here😂",photo:"A funny picture goes here"},
+ {type:"quiz",title:"QUESTION 1 🧠",body:"What did RG finish when she came to CCL's house while watching movie?",options:["A packet of chocolates","A glass of coffee","A box of khakhara"],correct:2,good:"OHHH, SOMEONE HAS BEEN PAYING ATTENTION! 🧠✨ Maybe those brain cells have increased after all!",bad:"WRONGGGG! 😭 Were you even watching the movie, or were you just there for the snacks? Try again, madam!"},
+ {type:"story",title:"THE LEGENDARY KHAKHARA INCIDENT",body:"Well this had to be right. No khakhara was brought in our house for a long time after that day. And remember tune aawle bhar liye the mutthi me🤣🤣🤣🤣 Ek baar khaane ke liye Ghar me kya nhi bulaya tune to hamla hi bol diya ghar ke khaane pe😂",photo:"The khakhara memory photo goes here"},
+ {type:"quiz",title:"QUESTION 2 🍫",body:"Which chocolate Rishi used to bring for chap chap each time he visited her?",options:["Dairy milk","Milky Bar","Ferrero Rocher"],correct:1,good:"OHHHH, SHE REMEMBERS THE MILKY BARS! 🤍🥹 Chap Chap was clearly being pampered. Someone's memory is working suspiciously well!",bad:"EXCUSE ME?! 😭 Itna chocolate khilaya aur ab chocolate ka naam hi bhool gayi? Try again, madam! 😂"},
+ {type:"quiz",title:"QUESTION 3 🍽️",body:"Which food do CCL and RG love to have at Rishi's place?",options:["Bhindi Roti","Dal Baati","Pav Bhaji"],correct:0,good:"",bad:"WRONGGG! 😭 Think about that favourite meal one more time. Try again! 😂"},
+ {type:"memory",title:"BHINDI ROTI. OUR LITTLE CORE MEMORY. 💚",body:"Bhindi roti is going to be one of the core memories that I'll associate with you. Sitting with you there having our favourite meal just brought in a different kind of joy.",photo:"Our Bhindi Roti memory photo goes here"},
+ {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚",body:"How much does CCL love RG?",options:["A lot","Infinity ♾️","More than infinity 💚"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
+];
+let current=0;
+const gate=document.getElementById('gate'),quest=document.getElementById('quest'),content=document.getElementById('slide-content'),feedback=document.getElementById('feedback'),actions=document.getElementById('actions'),progress=document.getElementById('progress');
 document.getElementById('unlock').addEventListener('submit',e=>{
  e.preventDefault();
- if(document.getElementById('pass').value===DEMO_PASSCODE){
-  document.getElementById('gate').classList.add('hidden');
-  document.getElementById('welcome').classList.remove('hidden');
- } else { document.getElementById('error').textContent='Not quite. Try the secret word again.'; }
+ if(document.getElementById('pass').value===DEMO_PASSCODE){gate.classList.add('hidden');quest.classList.remove('hidden');renderSlide();}
+ else document.getElementById('error').textContent='Not quite. Try the secret word again.';
 });
-</script></body></html>
+function photo(label){return '<div class="photo" role="img" aria-label="'+escapeHTML(label)+'"><span class="symbol">♡</span><strong>'+escapeHTML(label)+'</strong><span>Photo placeholder — we’ll add your picture later.</span></div>'}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderSlide(){
+ const s=slides[current];feedback.className='feedback hidden';feedback.textContent='';actions.innerHTML='';
+ progress.textContent='YOUR QUEST · '+(current+1)+' / '+slides.length;
+ let html='<span class="pill">'+(s.type==='quiz'?'MEMORY CHECK':s.type==='memory'?'A LITTLE MEMORY':'CLUE '+(current+1))+'</span><h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
+ if(s.photo)html+=photo(s.photo);
+ if(s.options){
+  html+='<div class="choices">'+s.options.map((o,i)=>'<button class="choice" data-option="'+i+'"><span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
+ }
+ content.innerHTML=html;
+ if(s.options){
+  content.querySelectorAll('[data-option]').forEach(btn=>btn.addEventListener('click',()=>choose(Number(btn.dataset.option))));
+ }else{
+  const next=document.createElement('button');next.textContent='Continue →';next.addEventListener('click',advance);actions.appendChild(next);
+ }
+}
+function choose(index){
+ const s=slides[current];
+ if(s.type!=='quiz'){advance();return;}
+ if(index===s.correct){
+  feedback.className='feedback';feedback.textContent=s.good||'CORRECT! 🥹❤️';
+  content.querySelectorAll('[data-option]').forEach(b=>b.disabled=true);
+  const next=document.createElement('button');next.textContent='Continue →';next.addEventListener('click',advance);actions.appendChild(next);
+ }else{
+  feedback.className='feedback wrong';feedback.textContent=s.bad||'Not quite! Try again 💚';
+ }
+}
+function advance(){if(current<slides.length-1){current++;renderSlide();}else{content.innerHTML='<span class="pill">TO BE CONTINUED</span><h2>The treasure is still waiting… 💚</h2><p>More memories and surprises are on their way.</p><div class="photo"><span class="symbol">♡</span><strong>Secret treasure placeholder</strong><span>We’ll build the ending together.</span></div>';actions.innerHTML='';const restart=document.createElement('button');restart.className='secondary';restart.textContent='Replay the quest';restart.addEventListener('click',()=>{current=0;renderSlide()});actions.appendChild(restart);}}
+</script>
+</body>
+</html>
