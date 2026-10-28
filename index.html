@@ -9,11 +9,11 @@
 :root{--green:#164d2a;--soft:#e8f5e9;--accent:#a5d6a7;--paper:#fffdf8;--ink:#233126;--muted:#657468;--rose:#c36f88;--gold:#c6a45a}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;padding:20px;overflow-x:hidden;background:radial-gradient(ellipse at 50% -10%,#fff9e9 0,transparent 48%),radial-gradient(ellipse at 8% 75%,#d9eedc 0,transparent 34%),linear-gradient(145deg,#f7fbf4,#dcefe0);color:var(--ink);font-family:Georgia,'Times New Roman',serif;display:grid;place-items:center;position:relative}
+body{margin:0;min-height:100vh;padding:20px;overflow-x:hidden;background:radial-gradient(ellipse at 50% -10%,#fff9e9 0,transparent 48%),radial-gradient(ellipse at 8% 75%,#d9eedc 0,transparent 34%),linear-gradient(145deg,#f7fbf4,#dcefe0);color:var(--ink);font-family:Georgia,'Times New Roman',serif;display:grid;place-items:center;position:relative;transition:background 1s ease,color 1s ease}
 body:before,body:after{content:"♡";position:fixed;z-index:0;pointer-events:none;color:#4e965d2b;font-family:Georgia,serif;animation:float 7s ease-in-out infinite}
 body:before{font-size:clamp(80px,15vw,155px);top:5%;left:4%;transform:rotate(-16deg)}
 body:after{content:"✦";font-size:clamp(50px,9vw,95px);bottom:6%;right:6%;color:#c6a45a4a;animation-delay:-3s}
-.card{position:relative;z-index:1;width:min(100%,700px);padding:clamp(24px,5vw,46px);border:1px solid #b3d8b5;border-radius:30px;background:rgba(255,255,250,.94);box-shadow:0 28px 90px #173e2221,0 0 0 8px #ffffff50,0 3px 15px #234a2510;text-align:center;backdrop-filter:blur(10px);animation:card-arrive .85s cubic-bezier(.2,.8,.2,1) both}
+.card{position:relative;z-index:1;width:min(100%,700px);padding:clamp(24px,5vw,46px);border:1px solid #b3d8b5;border-radius:30px;background:rgba(255,255,250,.94);box-shadow:0 28px 90px #173e2221,0 0 0 8px #ffffff50,0 3px 15px #234a2510;text-align:center;backdrop-filter:blur(10px);animation:card-arrive .85s cubic-bezier(.2,.8,.2,1) both;transition:background 1s ease,border-color 1s ease,box-shadow 1s ease}
 .card:before{content:"";position:absolute;top:0;left:12%;right:12%;height:3px;border-radius:0 0 99px 99px;background:linear-gradient(90deg,transparent,var(--gold),var(--rose),var(--gold),transparent);opacity:.8}
 .eyebrow{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
 h1{font-size:clamp(38px,8vw,60px);line-height:1.02;color:var(--green);font-weight:normal;letter-spacing:-.045em;margin:22px 0 18px;text-wrap:balance}
@@ -46,8 +46,22 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .memory{white-space:pre-line}
 #slide-content{animation:slide-in .55s cubic-bezier(.2,.8,.2,1) both}
 #actions{animation:feedback-in .4s ease both}
-#gate h1{position:relative}
-#gate h1:after{content:"✦";display:block;color:var(--gold);font-size:20px;letter-spacing:.5em;margin-top:15px;animation:twinkle 2.5s ease-in-out infinite}
+#gate h1:after{content:"✦  ·  ✦";display:block;color:var(--gold);font:18px Arial,sans-serif;letter-spacing:.55em;margin-top:24px;animation:twinkle 3s ease-in-out infinite}
+body.mystery-mode{background:radial-gradient(ellipse at 50% 40%,#23344b 0,#111b2b 42%,#080d18 100%);color:#f5edda}
+body.mystery-mode:before{content:"✧";color:#d5b66c36;font-size:clamp(130px,28vw,260px);top:3%;left:4%;animation:float 9s ease-in-out infinite}
+body.mystery-mode:after{content:"✦";color:#e6ce9255;font-size:clamp(65px,12vw,120px);bottom:5%;right:8%}
+body.mystery-mode .card{background:linear-gradient(155deg,#18263aee,#101827f5);border-color:#8f784b;box-shadow:0 30px 100px #0009,0 0 0 1px #c9ac6a2b,0 0 65px #b89a5420}
+body.mystery-mode .card:before{background:linear-gradient(90deg,transparent,#b89a54,#f3dfaa,#b89a54,transparent);height:2px}
+body.mystery-mode .eyebrow{color:#d7bd7c}
+body.mystery-mode h1{color:#f4e6c4;font-size:clamp(35px,7.4vw,54px);letter-spacing:-.035em}
+body.mystery-mode p{color:#e8e1d4}
+body.mystery-mode .sub,body.mystery-mode .note{color:#aab7c7}
+body.mystery-mode input{background:#0d1523;border-color:#8f784b;color:#fff4d8}
+body.mystery-mode input::placeholder{color:#9da8b7}
+body.mystery-mode input:focus{border-color:#d8bd7a;box-shadow:0 0 0 4px #c5a65a30}
+body.mystery-mode #gate button{background:linear-gradient(110deg,#a88a4c,#e0c783,#a88a4c);color:#111827;border:1px solid #e4ce94;box-shadow:0 8px 30px #c8a65425}
+body.mystery-mode #error{color:#e9c6c6}
+body.mystery-mode #gate h1:after{color:#d8bd7a}
 @keyframes card-arrive{from{opacity:0;transform:translateY(22px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes slide-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes feedback-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
@@ -55,18 +69,18 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 @keyframes heartbeat{0%,100%{transform:scale(1)}8%{transform:scale(1.13)}16%{transform:scale(1)}24%{transform:scale(1.08)}32%{transform:scale(1)}}
 @keyframes twinkle{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
 @keyframes wrong-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
-@media(max-width:520px){body{padding:13px}.card{padding:27px 18px;border-radius:25px}p{font-size:16px}.photo{min-height:145px}}
+@media(max-width:520px){body{padding:13px}.card{padding:27px 18px;border-radius:25px}p{font-size:16px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
-<body>
+<body class="mystery-mode">
 <main class="card">
-  <div class="eyebrow">✦ A small mystery, just for you ✦</div>
+  <div class="eyebrow" id="site-eyebrow">✦ PRIVATE INVITATION · RESERVED FOR ONE ✦</div>
   <section id="gate">
-    <h1>A Little Mystery</h1>
-    <p>Some stories are too special to tell all at once.</p>
-    <p class="sub">When the moment feels right, enter the secret word you were given.</p>
-    <form id="unlock"><input id="pass" type="password" placeholder="Secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Unlock the little mystery</button></form>
+    <h1>An Invitation<br>Meant for One</h1>
+    <p>Not every door is meant to be found.<br>Some are opened only by the person they are waiting for.</p>
+    <p class="sub">If you were entrusted with the secret word, you are exactly where you need to be.</p>
+    <form id="unlock"><input id="pass" type="password" placeholder="Enter the secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Enter the private invitation&nbsp; ↗</button></form>
     <div id="error" class="note" role="status"></div>
   </section>
   <section id="quest" class="hidden" aria-live="polite">
@@ -75,7 +89,7 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
     <div id="feedback" class="feedback hidden" role="status"></div>
     <div id="actions"></div>
   </section>
-  <div class="note">Made with care, for one very special person. ♡</div>
+  <div class="note" id="footer-note">ACCESS RESERVED FOR ONE PERSON · PLEASE KEEP THIS INVITATION CLOSE</div>
 </main>
 <script>
 // TEMPORARY DEMO GATE ONLY. This passcode is visible in page source.
@@ -95,7 +109,7 @@ let current=0;
 const gate=document.getElementById('gate'),quest=document.getElementById('quest'),content=document.getElementById('slide-content'),feedback=document.getElementById('feedback'),actions=document.getElementById('actions'),progress=document.getElementById('progress');
 document.getElementById('unlock').addEventListener('submit',e=>{
  e.preventDefault();
- if(document.getElementById('pass').value===DEMO_PASSCODE){gate.classList.add('hidden');quest.classList.remove('hidden');renderSlide();}
+ if(document.getElementById('pass').value===DEMO_PASSCODE){document.body.classList.remove('mystery-mode');document.getElementById('site-eyebrow').textContent='✦ A small mystery, just for you ✦';document.getElementById('footer-note').textContent='Made with care, for one very special person. ♡';gate.classList.add('hidden');quest.classList.remove('hidden');renderSlide();}
  else document.getElementById('error').textContent='Not quite. Try the secret word again.';
 });
 function photo(label){return '<div class="photo" role="img" aria-label="'+escapeHTML(label)+'"><span class="symbol">♡</span><strong>'+escapeHTML(label)+'</strong><span>Photo placeholder — we’ll add your picture later.</span></div>'}
