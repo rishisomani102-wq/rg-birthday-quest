@@ -64,7 +64,7 @@ body.mystery-mode #error{color:#e9c6c6}
 body.mystery-mode #gate h1:after{color:#d8bd7a}
 .confidential{display:flex;align-items:center;gap:13px;text-align:left;margin:22px 0 20px;padding:16px 17px;border:1px solid #a88a4c;border-left:4px solid #e0c783;border-radius:13px;background:linear-gradient(110deg,#242b36,#171f2c);box-shadow:inset 0 0 24px #c6a45a08}
 .confidential .warning-symbol{display:grid;place-items:center;flex:0 0 36px;height:36px;border:1px solid #c9aa63;border-radius:50%;color:#e0c783;font:24px Arial,sans-serif}
-.confidential strong{display:block;color:#e7cd8c;font:700 11px Arial,sans-serif;letter-spacing:.16em;margin-bottom:6px}
+.hint-line{margin:15px 0 20px;padding:12px 14px;border:1px dashed #a88a4c;border-radius:11px;color:#e7cd8c!important;font:13px/1.6 Arial,sans-serif!important;letter-spacing:.02em;background:#c6a45a0d}.hint-line strong{letter-spacing:.14em;font-size:11px;margin-right:5px}.confidential strong{display:block;color:#e7cd8c;font:700 11px Arial,sans-serif;letter-spacing:.16em;margin-bottom:6px}
 .confidential span:last-child{display:block;color:#e5e0d5;font:13px/1.6 Arial,sans-serif}
 body:not(.mystery-mode) .confidential{display:none}
 @media(max-width:520px){.confidential{padding:13px;text-align:left}.confidential span:last-child{font-size:12px}}
@@ -85,7 +85,9 @@ body:not(.mystery-mode) .confidential{display:none}
   <section id="gate">
     <h1>An Invitation<br>Meant for One</h1>
     <div class="confidential"><span class="warning-symbol">⚠</span><div><strong>PRIVATE INVITATION</strong><span>This is meant for your eyes only. Please do not tell anyone about it or share this link.</span></div></div>
-    <p>Some invitations are meant to find only one person.</p>
+    <p>If the QR Code on the NMACC Letter brought you here, you are at the right place. You have been assigned a mission to unlock a secret message that a person very close to you has been hiding from you.</p>
+    <p class="sub">Now, to verify your identity, enter the code below.</p>
+    <p class="hint-line"><strong>HINT</strong> — Your nickname, without spaces.</p>
     <p class="sub">If you were entrusted with the secret word, you are exactly where you need to be.</p>
     <form id="unlock"><input id="pass" type="password" placeholder="Enter the secret word" autocomplete="off" aria-label="Secret word" required><button type="submit">Enter the private invitation&nbsp; ↗</button></form>
     <div id="error" class="note" role="status"></div>
