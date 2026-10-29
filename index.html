@@ -105,15 +105,15 @@ body:not(.mystery-mode) .confidential{display:none}
 // Do not add private photos or sensitive messages until server-side protection is deployed.
 const DEMO_PASSCODE = "chapchap";
 const slides = [
- {type:"welcome",title:"THE ADVENTURE BEGINS",body:"Today is a very special day. Today's the day when the world's most amazing creature was born. Today's the day RG turns 25🎉. And on this special day, his naya navela boyfriend decided to design a small quest for her to see if one month of dating increased any of her brain cells😎. There is a special message for RG at the end. Answer all questions correctly to unlock the message. So should we get started🥳?",options:["Yes","Definitely yes","Ye bhi koi poochne ki baat hai"]},
- {type:"story",title:"THE ADVENTURE BEGINS",body:"RG is going to embark on a special journey with a secret treasure at the end. But before that here is a funny picture which has no relevance but CCL just think it's funny so it's here😂",photo:"A funny picture goes here"},
- {type:"quiz",title:"QUESTION 1 🧠",body:"What did RG finish when she came to CCL's house while watching movie?",options:["A packet of chocolates","A glass of coffee","A box of khakhara"],correct:2,good:"OHHH, SOMEONE HAS BEEN PAYING ATTENTION! 🧠✨ Maybe those brain cells have increased after all!",bad:"Poora box khatam krr diya and ab yaad bhi nhi aa raha kya khaya tha😂"},
- {type:"story",title:"THE LEGENDARY KHAKHARA INCIDENT",body:"Well this had to be right. No khakhara was brought in our house for a long time after that day. And remember tune aawle bhar liye the mutthi me🤣🤣🤣🤣 Ek baar khaane ke liye Ghar me kya nhi bulaya tune to hamla hi bol diya ghar ke khaane pe😂",photo:"The khakhara memory photo goes here"},
- {type:"quiz",title:"QUESTION 2 🍫",body:"Which chocolate Rishi used to bring for chap chap each time he visited her?",options:["Dairy milk","Milky Bar","Ferrero Rocher"],correct:1,good:"I loved pampering you with all those milky bars during your milky bar phase and I liked how happily you accepted each one of those🥹🤍",bad:"EXCUSE ME?! 😭 Itna chocolate khilaya aur ab chocolate ka naam hi bhool gayi? Try again, madam! 😂"},
- {type:"quiz",title:"QUESTION 3 🍽️",body:"Which food do CCL and RG love to have at Rishi's place?",options:["Bhindi Roti","Dal Baati","Pav Bhaji"],correct:0,good:"",bad:"WRONGGG! 😭 Think about that favourite meal one more time. Try again! 😂"},
- {type:"memory",title:"BHINDI ROTI. OUR LITTLE CORE MEMORY. 💚",body:"Bhindi roti is going to be one of the core memories that I'll associate with you❤️. Sitting with you there having our favourite meal, my happiness was unparalleled. Also I like feeding you with my hands as much as you like eating from them. Let's have bhindi roti together soon.",photo:"Our Bhindi Roti memory photo goes here"},
- {type:"quiz",title:"QUESTION 4 📓",body:"To whom did RG say fuck off at the back of her notebook?",options:["Outstanding rent","Trade Receivables","Land and Building"],correct:1,good:"Never understood what did Trade Receivables do to deserve this treatment but still correct answer 😭",bad:"If you answered this wrong, you’ll have to give me your diary as a gift 😂"},
- {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚",body:"How much does CCL love RG?",options:["A lot","Infinity ♾️","More than infinity 💚"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
+ {type:"welcome",title:"THE ADVENTURE BEGINS",body:"Today is a very special day. Today's the day when the world's most amazing creature was born. Today's the day RG turns 25🎉. And on this special day, his naya navela boyfriend decided to design a small quest for her to see if one month of dating increased any of her brain cells😎. There is a special message for RG at the end. Answer all questions correctly to unlock the message. So should we get started🥳?",options:["Yes 💚","Definitely yes 🥳","Ye bhi koi poochne ki baat hai 😂"]},
+ {type:"story",title:"THE ADVENTURE BEGINS 🗺️",body:"RG is going to embark on a special journey 🧭 with a secret treasure 💎 at the end. But before that here is a funny picture which has no relevance but CCL just think it's funny so it's here😂",photo:"A funny picture goes here 😂📸"},
+ {type:"quiz",title:"QUESTION 1 🧠",body:"What did RG finish when she came to CCL's house while watching movie?",options:["A packet of chocolates 🍫","A glass of coffee ☕","A box of khakhara 📦😂"],correct:2,good:"OHHH, SOMEONE HAS BEEN PAYING ATTENTION! 🧠✨ Maybe those brain cells have increased after all!",bad:"Poora box khatam krr diya and ab yaad bhi nhi aa raha kya khaya tha😂"},
+ {type:"story",title:"THE LEGENDARY KHAKHARA INCIDENT 😂📦",body:"Well this had to be right. No khakhara was brought in our house for a long time after that day. And remember tune aawle bhar liye the mutthi me🤣🤣🤣🤣 Ek baar khaane ke liye Ghar me kya nhi bulaya tune to hamla hi bol diya ghar ke khaane pe😂",photo:"The khakhara memory photo goes here 📸😂"},
+ {type:"quiz",title:"QUESTION 2 🍫",body:"Which chocolate Rishi used to bring for chap chap each time he visited her?",options:["Dairy Milk 🍫","Milky Bar 🤍","Ferrero Rocher 🍬"],correct:1,good:"I loved pampering you with all those milky bars during your milky bar phase and I liked how happily you accepted each one of those🥹🤍",bad:"EXCUSE ME?! 😭 Itna chocolate khilaya aur ab chocolate ka naam hi bhool gayi? Try again, madam! 😂"},
+ {type:"quiz",title:"QUESTION 3 🍽️",body:"Which food do CCL and RG love to have at Rishi's place?",options:["Bhindi Roti 💚","Dal Baati 😋","Pav Bhaji 🤤"],correct:0,good:"",bad:"WRONGGG! 😭 Think about that favourite meal one more time. Try again! 😂"},
+ {type:"memory",title:"BHINDI ROTI. OUR LITTLE CORE MEMORY. 💚",body:"Bhindi roti is going to be one of the core memories that I'll associate with you❤️. Sitting with you there having our favourite meal, my happiness was unparalleled. Also I like feeding you with my hands as much as you like eating from them. Let's have bhindi roti together soon.",photo:"Our Bhindi Roti memory photo goes here 📸💚"},
+ {type:"quiz",title:"QUESTION 4 📓",body:"To whom did RG say fuck off at the back of her notebook?",options:["Outstanding Rent 🏠","Trade Receivables 📊","Land and Building 🏢"],correct:1,good:"Never understood what did Trade Receivables do to deserve this treatment but still correct answer 😭",bad:"If you answered this wrong, you’ll have to give me your diary as a gift 😂"},
+ {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚🥹",body:"How much does CCL love RG? 🥹❤️",options:["A lot 🥰","Infinity ♾️","More than infinity 💚✨"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
 ];
 let current=0;
 const gate=document.getElementById('gate'),quest=document.getElementById('quest'),content=document.getElementById('slide-content'),feedback=document.getElementById('feedback'),actions=document.getElementById('actions'),progress=document.getElementById('progress');
@@ -127,7 +127,7 @@ function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 function renderSlide(){
  const s=slides[current];feedback.className='feedback hidden';feedback.textContent='';actions.innerHTML='';
 
- progress.textContent='YOUR QUEST · '+(current+1)+' / '+slides.length;
+ progress.textContent='YOUR QUEST 🗺️ · '+(current+1)+' / '+slides.length;
  let html=(current>0?'<button type="button" class="nav-back" id="back-slide">← Back to previous question</button>':'')+'<span class="pill">'+(s.type==='quiz'?'MEMORY CHECK':s.type==='memory'?'A LITTLE MEMORY':'CLUE '+(current+1))+'</span><h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
  if(s.photo)html+=photo(s.photo);
  if(s.options){
@@ -138,7 +138,7 @@ function renderSlide(){
  if(s.options){
   content.querySelectorAll('[data-option]').forEach(btn=>btn.addEventListener('click',()=>choose(Number(btn.dataset.option))));
  }else{
-  const next=document.createElement('button');next.textContent='Continue →';next.addEventListener('click',advance);actions.appendChild(next);
+  const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);
  }
 }
 function choose(index){
