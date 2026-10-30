@@ -13,7 +13,7 @@ body{margin:0;min-height:100vh;padding:20px;overflow-x:hidden;background:radial-
 body:before,body:after{content:"♡";position:fixed;z-index:0;pointer-events:none;color:#4e965d2b;font-family:Georgia,serif;animation:float 7s ease-in-out infinite}
 body:before{font-size:clamp(80px,15vw,155px);top:5%;left:4%;transform:rotate(-16deg)}
 body:after{content:"✦";font-size:clamp(50px,9vw,95px);bottom:6%;right:6%;color:#c6a45a4a;animation-delay:-3s}
-.card{position:relative;z-index:1;width:min(100%,700px);padding:clamp(24px,5vw,46px);border:1px solid #b3d8b5;border-radius:30px;background:rgba(255,255,250,.94);box-shadow:0 28px 90px #173e2221,0 0 0 8px #ffffff50,0 3px 15px #234a2510;text-align:center;backdrop-filter:blur(10px);animation:card-arrive .85s cubic-bezier(.2,.8,.2,1) both;transition:background 1s ease,border-color 1s ease,box-shadow 1s ease}
+.card{position:relative;z-index:1;width:min(100%,700px);padding:clamp(24px,5vw,46px);border:1px solid #b3d8b5;border-radius:30px;background:rgba(255,255,250,.94);box-shadow:0 28px 90px #173e2221,0 0 0 8px #ffffff50,0 3px 15px #234a2510;text-align:center;backdrop-filter:blur(10px);animation:card-arrive 1.15s cubic-bezier(.2,.8,.2,1) both;transition:background 1s ease,border-color 1s ease,box-shadow 1s ease}
 .card:before{content:"";position:absolute;top:0;left:12%;right:12%;height:3px;border-radius:0 0 99px 99px;background:linear-gradient(90deg,transparent,var(--gold),var(--rose),var(--gold),transparent);opacity:.8}
 .eyebrow{font:10px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
 h1{font-size:clamp(38px,8vw,60px);line-height:1.02;color:var(--green);font-weight:normal;letter-spacing:-.045em;margin:22px 0 18px;text-wrap:balance}
@@ -21,9 +21,9 @@ h2{font-size:clamp(27px,5.5vw,38px);line-height:1.13;color:var(--green);font-wei
 p{font-size:17px;line-height:1.75;margin:16px 0}
 .sub{font:13px Arial,sans-serif;color:var(--muted);line-height:1.7}
 input,button{font:16px Arial,sans-serif;border-radius:15px;padding:15px 17px;width:100%;margin-top:10px}
-input{background:white;border:1px solid #b6d9b8;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+input{background:white;border:1px solid #b6d9b8;color:var(--ink);outline:none;transition:border-color .35s,box-shadow .35s}
 input:focus{border-color:var(--green);box-shadow:0 0 0 4px #a5d6a744}
-button{background:linear-gradient(120deg,#225d31,#164d2a);color:white;border:1px solid #164d2a;font-weight:700;cursor:pointer;box-shadow:0 7px 18px #164d2a26;transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
+button{background:linear-gradient(120deg,#225d31,#164d2a);color:white;border:1px solid #164d2a;font-weight:700;cursor:pointer;box-shadow:0 7px 18px #164d2a26;transition:transform .35s ease,box-shadow .35s ease,filter .35s ease}
 button:hover{filter:brightness(1.08);transform:translateY(-2px);box-shadow:0 10px 24px #164d2a30}
 button:active{transform:translateY(0) scale(.985)}
 button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;box-shadow:none}
@@ -38,7 +38,7 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .photo strong{font-size:14px}
 .note{font:11px Arial,sans-serif;color:var(--muted);margin-top:22px;line-height:1.6;letter-spacing:.02em}
 .hidden{display:none!important}
-.feedback{margin-top:19px;padding:16px 17px;border:1px solid #d6ead5;border-radius:17px;background:linear-gradient(120deg,#f4faf1,#eaf6eb);color:var(--green);line-height:1.65;animation:feedback-in .4s ease both}
+.feedback{margin-top:19px;padding:16px 17px;border:1px solid #d6ead5;border-radius:17px;background:linear-gradient(120deg,#f4faf1,#eaf6eb);color:var(--green);line-height:1.65;animation:feedback-in .7s ease both}
 .feedback.wrong{border-color:#f1d4d0;background:linear-gradient(120deg,#fff7f4,#fff0ed);color:#a12d2d;animation:wrong-shake .35s ease both}
 .progress{position:relative;font:10px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:0 auto 19px;padding-bottom:13px}
 .progress:after{content:"";position:absolute;left:10%;right:10%;bottom:0;height:3px;border-radius:99px;background:linear-gradient(90deg,#a5d6a7,#c6a45a,#c36f88);opacity:.65}
@@ -46,13 +46,13 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .memory{white-space:pre-line}
 .wheel-wrap{position:relative;width:min(78vw,340px);aspect-ratio:1;margin:26px auto 18px}
 .wheel-pointer{position:absolute;z-index:3;top:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:0;border-bottom:30px solid #c36f88;filter:drop-shadow(0 3px 3px #0003)}
-.wheel-disc{width:100%;height:100%;border-radius:50%;border:8px solid #fffdf8;box-shadow:0 8px 28px #164d2a35,0 0 0 3px #c6a45a;position:relative;background:conic-gradient(from -45deg,#f5d98b 0 25%,#b9d9bd 25% 50%,#f2c4cf 50% 75%,#c7d8f0 75% 100%);transition:transform 5s cubic-bezier(.12,.78,.12,1)}
+.wheel-disc{width:100%;height:100%;border-radius:50%;border:8px solid #fffdf8;box-shadow:0 8px 28px #164d2a35,0 0 0 3px #c6a45a;position:relative;background:conic-gradient(from -45deg,#f5d98b 0 25%,#b9d9bd 25% 50%,#f2c4cf 50% 75%,#c7d8f0 75% 100%);transition:transform 9s cubic-bezier(.12,.78,.12,1)}
 .wheel-label{position:absolute;width:42%;left:29%;text-align:center;font:700 clamp(11px,2.7vw,14px) Arial,sans-serif;color:#233126;line-height:1.2}
 .wheel-label.one{top:8%}.wheel-label.two{right:3%;top:43%;left:auto}.wheel-label.three{bottom:8%}.wheel-label.four{left:3%;top:43%}
 .wheel-hub{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:22%;aspect-ratio:1;border-radius:50%;background:#fffdf8;border:4px solid #c6a45a;display:grid;place-items:center;color:#164d2a;font-size:24px;box-shadow:0 3px 12px #0002}
 #spin-wheel{max-width:340px;margin:4px auto 0}
 
-#slide-content{animation:slide-in .55s cubic-bezier(.2,.8,.2,1) both}
+#slide-content{animation:slide-in .9s cubic-bezier(.2,.8,.2,1) both}
 #actions{animation:feedback-in .4s ease both}
 #gate h1:after{content:"✦  ·  ✦";display:block;color:var(--gold);font:18px Arial,sans-serif;letter-spacing:.55em;margin-top:24px;animation:twinkle 3s ease-in-out infinite}
 body.mystery-mode{background:radial-gradient(ellipse at 50% 40%,#23344b 0,#111b2b 42%,#080d18 100%);color:#f5edda}
@@ -145,7 +145,7 @@ function renderSlide(){
   html+='<div class="choices">'+s.options.map((o,i)=>'<button class="choice" data-option="'+i+'"><span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
  }
  content.innerHTML=html;
- if(s.type==='wheel'){let turns=0;document.getElementById('spin-wheel').addEventListener('click',()=>{turns++;const disc=document.getElementById('wheel-disc');disc.style.transform='rotate('+(turns*2160)+'deg)';const spin=document.getElementById('spin-wheel');spin.disabled=true;spin.textContent='SPINNING... 🎡';setTimeout(()=>{feedback.className='feedback';feedback.textContent='Oh it seems RG owes CCL 5 lac kisses 🙈🙈🙈. Seems like someone is in huge debt! 💸 I think you should start paying it back ASAP 😉❤️';spin.disabled=false;spin.textContent='SPIN AGAIN 🎡 (THE FATE IS SEALED 😎)';},5100);});}
+ if(s.type==='wheel'){let turns=0;document.getElementById('spin-wheel').addEventListener('click',()=>{turns++;const disc=document.getElementById('wheel-disc');disc.style.transform='rotate('+(turns*3600)+'deg)';const spin=document.getElementById('spin-wheel');spin.disabled=true;spin.textContent='SPINNING... 🎡';setTimeout(()=>{feedback.className='feedback';feedback.textContent='Oh it seems RG owes CCL 5 lac kisses 🙈🙈🙈. Seems like someone is in huge debt! 💸 I think you should start paying it back ASAP 😉❤️';spin.disabled=false;spin.textContent='SPIN AGAIN 🎡 (THE FATE IS SEALED 😎)';},9100);});}
  const backButton=document.getElementById('back-slide');if(backButton)backButton.addEventListener('click',()=>{current--;renderSlide()});
  if(s.options){
   content.querySelectorAll('[data-option]').forEach(btn=>btn.addEventListener('click',()=>choose(Number(btn.dataset.option))));
