@@ -44,6 +44,14 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .progress:after{content:"";position:absolute;left:10%;right:10%;bottom:0;height:3px;border-radius:99px;background:linear-gradient(90deg,#a5d6a7,#c6a45a,#c36f88);opacity:.65}
 .pill{display:inline-block;border-radius:99px;background:#e8f5e9;border:1px solid #d1e8d2;padding:7px 13px;font:10px Arial,sans-serif;letter-spacing:.13em;color:var(--green)}
 .memory{white-space:pre-line}
+.wheel-wrap{position:relative;width:min(78vw,340px);aspect-ratio:1;margin:26px auto 18px}
+.wheel-pointer{position:absolute;z-index:3;top:-12px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:17px solid transparent;border-right:17px solid transparent;border-top:0;border-bottom:30px solid #c36f88;filter:drop-shadow(0 3px 3px #0003)}
+.wheel-disc{width:100%;height:100%;border-radius:50%;border:8px solid #fffdf8;box-shadow:0 8px 28px #164d2a35,0 0 0 3px #c6a45a;position:relative;background:conic-gradient(from -45deg,#f5d98b 0 25%,#b9d9bd 25% 50%,#f2c4cf 50% 75%,#c7d8f0 75% 100%);transition:transform 5s cubic-bezier(.12,.78,.12,1)}
+.wheel-label{position:absolute;width:42%;left:29%;text-align:center;font:700 clamp(11px,2.7vw,14px) Arial,sans-serif;color:#233126;line-height:1.2}
+.wheel-label.one{top:8%}.wheel-label.two{right:3%;top:43%;left:auto}.wheel-label.three{bottom:8%}.wheel-label.four{left:3%;top:43%}
+.wheel-hub{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:22%;aspect-ratio:1;border-radius:50%;background:#fffdf8;border:4px solid #c6a45a;display:grid;place-items:center;color:#164d2a;font-size:24px;box-shadow:0 3px 12px #0002}
+#spin-wheel{max-width:340px;margin:4px auto 0}
+
 #slide-content{animation:slide-in .55s cubic-bezier(.2,.8,.2,1) both}
 #actions{animation:feedback-in .4s ease both}
 #gate h1:after{content:"✦  ·  ✦";display:block;color:var(--gold);font:18px Arial,sans-serif;letter-spacing:.55em;margin-top:24px;animation:twinkle 3s ease-in-out infinite}
@@ -113,6 +121,7 @@ const slides = [
  {type:"quiz",title:"QUESTION 3 🍽️",body:"Which food 🍽️ do CCL and RG love to have at Rishi's place? 🏡",options:["Bhindi Roti 💚","Dal Baati 😋","Pav Bhaji 🤤"],correct:0,good:"",bad:"😡😡How dare you click anything else but the right answer on this one"},
  {type:"memory",title:"BHINDI ROTI. OUR LITTLE CORE MEMORY. 💚",body:"Bhindi roti is going to be one of the core memories that I'll associate with you❤️. Sitting with you there having our favourite meal, my happiness was unparalleled. Also I like feeding you with my hands as much as you like eating from them. Let's have bhindi roti together soon🥺.",photo:"Our Bhindi Roti memory photo goes here 📸💚"},
  {type:"quiz",title:"QUESTION 4 📓",body:"To whom did RG say \"fuck off\" 😂 at the back of her notebook? 📓",options:["Outstanding Rent 🏠","Trade Receivables 📊","Land and Building 🏢"],correct:1,good:"Never understood what did Trade Receivables do to deserve this treatment but still correct answer 😭",bad:"If you answered this wrong, you’ll have to give me your diary as a gift 😂"},
+ {type:"wheel",title:"A GAME OF FATE 🎡✨",body:"Enough of tickling your little brain cells 🧠😂. Let’s play a game of fate! Since it’s RG’s birthday 🎂, she is supposed to give a return gift 🎁 to her boyfriend. And she’ll have to give whatever the wheel lands on! So, the task is simple: spin the wheel, see where it lands, and that will be CCL’s return gift. Good luck, RG! 😎💚"},
  {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚🥹",body:"How much does CCL love RG? 🥹❤️",options:["A lot 🥰","Infinity ♾️","More than infinity 💚✨"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
 ];
 let current=0;
@@ -130,10 +139,12 @@ function renderSlide(){
  progress.textContent='YOUR QUEST 🗺️ · '+(current+1)+' / '+slides.length;
  let html=(current>0?'<button type="button" class="nav-back" id="back-slide">← Back to previous question 💭</button>':'')+'<span class="pill">'+(s.type==='quiz'?'MEMORY CHECK':s.type==='memory'?'A LITTLE MEMORY':'CLUE '+(current+1))+'</span><h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
  if(s.photo)html+=photo(s.photo);
+ if(s.type==='wheel')html+='<div class="wheel-wrap"><div class="wheel-pointer"></div><div class="wheel-disc" id="wheel-disc"><span class="wheel-label one">5 LAC KISSES 💋</span><span class="wheel-label two">₹10,000 💸</span><span class="wheel-label three">A BRAND NEW SHIRT 👕</span><span class="wheel-label four">A BOX OF CHOCOLATES 🍫</span><span class="wheel-hub">💚</span></div></div><button id="spin-wheel" type="button">SPIN THE WHEEL 🎡</button>';
  if(s.options){
   html+='<div class="choices">'+s.options.map((o,i)=>'<button class="choice" data-option="'+i+'"><span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
  }
  content.innerHTML=html;
+ if(s.type==='wheel'){let turns=0;document.getElementById('spin-wheel').addEventListener('click',()=>{turns++;const disc=document.getElementById('wheel-disc');disc.style.transform='rotate('+(turns*2160)+'deg)';const spin=document.getElementById('spin-wheel');spin.disabled=true;spin.textContent='SPINNING... 🎡';setTimeout(()=>{feedback.className='feedback';feedback.textContent='Oh it seems RG owes CCL 5 lac kisses 💋💋💋. Seems like someone is in huge debt! 💸 I think you should start paying it back ASAP 😉❤️';spin.disabled=false;spin.textContent='SPIN AGAIN 🎡 (THE FATE IS SEALED 😎)';},5100);});}
  const backButton=document.getElementById('back-slide');if(backButton)backButton.addEventListener('click',()=>{current--;renderSlide()});
  if(s.options){
   content.querySelectorAll('[data-option]').forEach(btn=>btn.addEventListener('click',()=>choose(Number(btn.dataset.option))));
