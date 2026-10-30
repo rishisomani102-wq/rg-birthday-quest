@@ -185,7 +185,7 @@ function initCompatibility(){
  let active=-1;
  function paint(){
   if(active<0){
-   area.innerHTML='<div class="compat-grid">'+compatibilityItems.map((item,i)=>'<button type="button" class="compat-tile '+(compatibilityAnswers[i]?'done':'')+'" data-compat="'+i+'"><span class="art">'+item.art+'</span><strong>'+item.word+'</strong><span class="compat-done">'+(compatibilityAnswers[i]?'✓ Memory unlocked':'Tap to open')+'</span></button>').join('')+'</div><p class="compat-done">'+Object.keys(compatibilityAnswers).length+' of 4 memories revealed 💚</p>';
+   area.innerHTML='<div class="compat-grid">'+compatibilityItems.map((item,i)=>'<button type="button" class="compat-tile '+(compatibilityAnswers[i]?'done':'')+'" data-compat="'+i+'"><span class="art">🎁</span><strong>Box '+(i+1)+'</strong><span class="compat-done">'+(compatibilityAnswers[i]?'✓ Opened':'Tap to reveal')+'</span></button>').join('')+'</div><p class="compat-done">'+Object.keys(compatibilityAnswers).length+' of 4 boxes opened 💚</p>';
    area.querySelectorAll('[data-compat]').forEach(btn=>btn.addEventListener('click',()=>{active=Number(btn.dataset.compat);paint();}));
    if(Object.keys(compatibilityAnswers).length===4){const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);}
    return;
