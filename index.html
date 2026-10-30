@@ -38,8 +38,11 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .photo strong{font-size:14px}
 .note{font:11px Arial,sans-serif;color:var(--muted);margin-top:22px;line-height:1.6;letter-spacing:.02em}
 .hidden{display:none!important}
-.feedback{margin-top:19px;padding:16px 17px;border:1px solid #d6ead5;border-radius:17px;background:linear-gradient(120deg,#f4faf1,#eaf6eb);color:var(--green);line-height:1.65;animation:feedback-in .7s ease both}
-.feedback.wrong{border-color:#f1d4d0;background:linear-gradient(120deg,#fff7f4,#fff0ed);color:#a12d2d;animation:wrong-shake .35s ease both}
+.feedback{margin-top:19px;padding:16px 17px;border:1px solid #d6ead5;border-radius:17px;background:linear-gradient(120deg,#f4faf1,#eaf6eb);color:var(--green);line-height:1.65;animation:feedback-in 1.15s cubic-bezier(.2,.8,.2,1) both}
+.feedback.wrong{border-color:#f1d4d0;background:linear-gradient(120deg,#fff7f4,#fff0ed);color:#a12d2d;animation:feedback-in 1.15s cubic-bezier(.2,.8,.2,1) both}
+.choice{animation:choice-arrive .85s cubic-bezier(.2,.8,.2,1) both}
+.choice:nth-child(1){animation-delay:.12s}.choice:nth-child(2){animation-delay:.24s}.choice:nth-child(3){animation-delay:.36s}
+#actions button{animation:feedback-in .9s cubic-bezier(.2,.8,.2,1) both}
 .progress{position:relative;font:10px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin:0 auto 19px;padding-bottom:13px}
 .progress:after{content:"";position:absolute;left:10%;right:10%;bottom:0;height:3px;border-radius:99px;background:linear-gradient(90deg,#a5d6a7,#c6a45a,#c36f88);opacity:.65}
 .pill{display:inline-block;border-radius:99px;background:#e8f5e9;border:1px solid #d1e8d2;padding:7px 13px;font:10px Arial,sans-serif;letter-spacing:.13em;color:var(--green)}
@@ -79,6 +82,7 @@ body:not(.mystery-mode) .confidential{display:none}
 @keyframes card-arrive{from{opacity:0;transform:translateY(22px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes slide-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 @keyframes feedback-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@keyframes choice-arrive{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
 @keyframes float{0%,100%{translate:0 0;rotate:-4deg}50%{translate:0 -17px;rotate:7deg}}
 @keyframes heartbeat{0%,100%{transform:scale(1)}8%{transform:scale(1.13)}16%{transform:scale(1)}24%{transform:scale(1.08)}32%{transform:scale(1)}}
 @keyframes twinkle{0%,100%{opacity:.55;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
