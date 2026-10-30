@@ -54,6 +54,11 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .wheel-label.one{top:8%}.wheel-label.two{right:3%;top:43%;left:auto}.wheel-label.three{bottom:8%}.wheel-label.four{left:3%;top:43%}
 .wheel-hub{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);width:22%;aspect-ratio:1;border-radius:50%;background:#fffdf8;border:4px solid #c6a45a;display:grid;place-items:center;color:#164d2a;font-size:24px;box-shadow:0 3px 12px #0002}
 #spin-wheel{max-width:340px;margin:4px auto 0}
+.puzzle-wrap{width:min(72vw,300px);aspect-ratio:3/5;margin:22px auto 12px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:4px;padding:5px;border-radius:17px;background:#fffdf8;border:2px solid #c6a45a;box-shadow:0 8px 24px #164d2a20;overflow:hidden}
+.puzzle-piece{margin:0;padding:0;min-width:0;min-height:0;border:1px solid #ffffffaa;border-radius:5px;background-image:url('puzzle.jpg');background-size:300% 300%;background-repeat:no-repeat;box-shadow:none;touch-action:manipulation}
+.puzzle-piece.selected{outline:4px solid #c36f88;outline-offset:-4px;filter:brightness(1.12)}
+.puzzle-hint{font:12px/1.6 Arial,sans-serif;color:var(--muted);margin:8px 0 0}
+
 
 #slide-content{animation:slide-in .9s cubic-bezier(.2,.8,.2,1) both}
 #actions{animation:feedback-in .4s ease both}
@@ -127,6 +132,7 @@ const slides = [
  {type:"quiz",title:"QUESTION 5 🍽️",body:"Which food 🍽️ do CCL and RG love to have at Rishi's place? 🏡",options:["Bhindi Roti 💚","Dal Baati 😋","Pav Bhaji 🤤"],correct:0,good:"",bad:"😡😡How dare you click anything else but the right answer on this one"},
  {type:"memory",title:"BHINDI ROTI. OUR LITTLE CORE MEMORY. 💚",body:"Bhindi roti is going to be one of the core memories that I'll associate with you❤️. Sitting with you there having our favourite meal, my happiness was unparalleled. Also I like feeding you with my hands as much as you like eating from them. Let's have bhindi roti together soon🥺.",photo:"Our Bhindi Roti memory photo goes here 📸💚"},
  {type:"wheel",title:"A GAME OF FATE 🎡✨",body:"Enough of tickling your little brain cells 🧠😂. Let’s play a game of fate! Since it’s RG’s birthday 🎂, she is supposed to give a return gift 🎁 to her boyfriend. And she’ll have to give whatever the wheel lands on! So, the task is simple: spin the wheel, see where it lands, and that will be CCL’s return gift. Good luck, RG! 😎💚"},
+ {type:"puzzle",title:"A LITTLE PIECE OF US 🧩💚",body:"One more little challenge before the final question. Put our picture back together! Tap any two pieces to swap their places."},
  {type:"story",title:"ONE LAST CHALLENGE… 👀",body:"If you have come this far, you remember a lot about us, but all of those were easy ones. To unlock the secret message, you need to answer one last question, and trust me it's going to be quite difficult. So are you readyyyyy?"},
  {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚🥹",body:"How much does CCL love RG? 🥹❤️",options:["A lot 🥰","Infinity ♾️","Moreeee than Infinityyyyyy ♾️🫶"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
 ];
@@ -145,11 +151,13 @@ function renderSlide(){
  progress.textContent='YOUR QUEST 🗺️ · '+(current+1)+' / '+slides.length;
  let html=(current>0?'<button type="button" class="nav-back" id="back-slide">← Back to previous question 💭</button>':'')+'<h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
  if(s.photo)html+=photo(s.photo);
+ if(s.type==='puzzle')html+='<div class="puzzle-wrap" id="puzzle-board">'+Array.from({length:9},(_,i)=>'<button type="button" class="puzzle-piece" data-slot="'+i+'" aria-label="Puzzle piece '+(i+1)+'"></button>').join('')+'</div><div class="puzzle-hint" id="puzzle-hint">Tap one piece, then another, to swap them. 💚</div>';
  if(s.type==='wheel')html+='<div class="wheel-wrap"><div class="wheel-pointer"></div><div class="wheel-disc" id="wheel-disc"><span class="wheel-label one">5 LAC KISSES 🙈</span><span class="wheel-label two">₹10,000 💸</span><span class="wheel-label three">A BRAND NEW SHIRT 👕</span><span class="wheel-label four">A BOX OF CHOCOLATES 🍫</span><span class="wheel-hub">💚</span></div></div><button id="spin-wheel" type="button">SPIN THE WHEEL 🎡</button>';
  if(s.options){
   html+='<div class="choices">'+s.options.map((o,i)=>'<button class="choice" data-option="'+i+'"><span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
  }
  content.innerHTML=html;
+ if(s.type==='puzzle')initPuzzle();
  if(s.type==='wheel'){let turns=0;document.getElementById('spin-wheel').addEventListener('click',()=>{turns++;const disc=document.getElementById('wheel-disc');disc.style.transform='rotate('+(turns*3600)+'deg)';const spin=document.getElementById('spin-wheel');spin.disabled=true;spin.textContent='SPINNING... 🎡';setTimeout(()=>{feedback.className='feedback';feedback.textContent='Oh it seems RG owes CCL 5 lac kisses 🙈🙈🙈. Seems like someone is in huge debt! 💸 I think you should start paying it back ASAP 😉❤️';spin.disabled=false;spin.textContent='SPIN AGAIN 🎡 (THE FATE IS SEALED 😎)';},9100);});}
  const backButton=document.getElementById('back-slide');if(backButton)backButton.addEventListener('click',()=>{current--;renderSlide()});
  if(s.options){
@@ -157,6 +165,32 @@ function renderSlide(){
  }else{
   const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);
  }
+}
+function initPuzzle(){
+ const order=[4,1,8,0,6,2,7,3,5];let selected=null,solved=false;
+ const board=document.getElementById('puzzle-board');
+ function paint(){
+  board.querySelectorAll('.puzzle-piece').forEach((button,slot)=>{
+   const piece=order[slot],row=Math.floor(piece/3),col=piece%3;
+   button.style.backgroundPosition=(col*50)+'% '+(row*50)+'%';
+   button.classList.toggle('selected',selected===slot);
+  });
+ }
+ board.querySelectorAll('.puzzle-piece').forEach(button=>button.addEventListener('click',()=>{
+  if(solved)return;
+  const slot=Number(button.dataset.slot);
+  if(selected===null){selected=slot;paint();return;}
+  if(selected===slot){selected=null;paint();return;}
+  [order[selected],order[slot]]=[order[slot],order[selected]];selected=null;paint();
+  if(order.every((piece,index)=>piece===index)){
+   solved=true;
+   feedback.className='feedback';
+   feedback.textContent="I know this was going to be easy for you since this is not the first time you are solving this. Our only decent picture😂. But I still remember how happy I was making that puzzle for you and felt the same happiness making this quest🫶";
+   document.getElementById('puzzle-hint').textContent='You did it! Our picture is back together. 🥹💚';
+   const next=document.createElement('button');next.textContent='Continue to the final challenge → 💚';next.addEventListener('click',advance);actions.appendChild(next);
+  }
+ }));
+ paint();
 }
 function choose(index){
  const s=slides[current];
