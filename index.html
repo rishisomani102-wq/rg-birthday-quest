@@ -147,14 +147,12 @@ document.getElementById('unlock').addEventListener('submit',e=>{
  if(document.getElementById('pass').value===DEMO_PASSCODE){document.body.classList.remove('mystery-mode');document.getElementById('site-eyebrow').textContent='✦ A small mystery, just for you ✦';document.getElementById('footer-note').textContent='Made with care, for one very special person. ♡';gate.classList.add('hidden');quest.classList.remove('hidden');renderSlide();}
  else document.getElementById('error').textContent='Not quite. Try the secret word again. 🔐';
 });
-function photo(label){return '<div class="photo" role="img" aria-label="'+escapeHTML(label)+'"><span class="symbol">♡</span><strong>'+escapeHTML(label)+'</strong><span>Photo placeholder — we’ll add your picture later.</span></div>'}
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function renderSlide(){
  const s=slides[current];feedback.className='feedback hidden';feedback.textContent='';actions.innerHTML='';
 
  progress.textContent='YOUR QUEST 🗺️ · '+(current+1)+' / '+slides.length;
  let html=(current>0?'<button type="button" class="nav-back" id="back-slide">← Back to previous question 💭</button>':'')+'<h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
- if(s.photo)html+=photo(s.photo);
  if(s.type==='city')html+='<div class="city-answer"><input id="city-answer" type="text" placeholder="Type the name of the city" autocomplete="off" aria-label="City name"><button type="button" id="check-city">Unlock this memory 💚</button></div>';
  if(s.type==='compatibility')html+='<div id="compat-area"></div>';
  if(s.type==='proposal')html+='<div class="proposal-stage"><div>✦ ✧ ✦</div><div class="proposal-couple"><span class="proposal-guy">🧎🏻‍♂️</span><span class="proposal-heart">💍</span></div><div class="proposal-question">Will you marry me?</div></div><div class="proposal-choices"><button type="button" id="proposal-yes">A. Yesssss🥹</button><button type="button" class="secondary" id="proposal-no">B. Noo💔</button></div><div id="proposal-result"></div>';
