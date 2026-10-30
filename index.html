@@ -57,7 +57,8 @@ button.secondary{background:#f5faf2;color:var(--green);border:1px solid #b5d8b7;
 .puzzle-wrap{width:min(72vw,300px);aspect-ratio:3/5;margin:22px auto 12px;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:4px;padding:5px;border-radius:17px;background:#fffdf8;border:2px solid #c6a45a;box-shadow:0 8px 24px #164d2a20;overflow:hidden}
 .puzzle-piece{margin:0;padding:0;min-width:0;min-height:0;border:1px solid #ffffffaa;border-radius:5px;background-image:url('puzzle.jpg');background-size:300% 300%;background-repeat:no-repeat;box-shadow:none;touch-action:manipulation}
 .puzzle-piece.selected{outline:4px solid #c36f88;outline-offset:-4px;filter:brightness(1.12)}
-.puzzle-hint{font:12px/1.6 Arial,sans-serif;color:var(--muted);margin:8px 0 0}.city-photo{display:block;width:100%;height:auto;max-height:none;object-fit:contain;border-radius:20px;margin:22px auto 16px;box-shadow:0 8px 25px #164d2a20;border:2px solid #fffdf8}.city-answer{margin-top:16px}
+.puzzle-hint{font:12px/1.6 Arial,sans-serif;color:var(--muted);margin:8px 0 0}
+.compat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}.compat-tile{min-height:124px;border:1.5px solid #b9d9b9;border-radius:18px;background:linear-gradient(145deg,#f7fff5,#fff8ed);color:var(--green);padding:16px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;box-shadow:0 5px 15px #164d2a12}.compat-tile .art{font-size:38px;line-height:1.2}.compat-tile strong{font:700 17px Arial,sans-serif}.compat-tile.done{background:#e8f5e9;border-color:#5c9c69}.compat-panel{margin:18px 0;padding:18px;border-radius:18px;background:#f7fbf4;border:1px solid #c7dfc5}.compat-panel .art{font-size:54px}.compat-panel textarea{width:100%;min-height:105px;resize:vertical;border:1px solid #b9d9b9;border-radius:13px;padding:13px;font:16px Arial,sans-serif;margin:12px 0;color:var(--ink);background:white}.compat-reveal{margin-top:14px;padding:15px;border-radius:14px;background:#fff3e8;border:1px dashed #d8ad80;text-align:left;line-height:1.6}.compat-done{font:13px Arial,sans-serif;color:var(--muted);margin-top:10px}.city-photo{display:block;width:100%;height:auto;max-height:none;object-fit:contain;border-radius:20px;margin:22px auto 16px;box-shadow:0 8px 25px #164d2a20;border:2px solid #fffdf8}.city-answer{margin-top:16px}
 
 
 #slide-content{animation:slide-in .9s cubic-bezier(.2,.8,.2,1) both}
@@ -134,6 +135,7 @@ const slides = [
  {type:"wheel",title:"A GAME OF FATE 🎡✨",body:"Enough of tickling your little brain cells 🧠😂. Let’s play a game of fate! Since it’s RG’s birthday 🎂, she is supposed to give a return gift 🎁 to her boyfriend. And she’ll have to give whatever the wheel lands on! So, the task is simple: spin the wheel, see where it lands, and that will be CCL’s return gift. Good luck, RG! 😎💚"},
  {type:"city",title:"Do You remember this picture?",body:"A little trip down memory lane before the final challenge. Which city was this picture taken in? Type your answer below."},
  {type:"puzzle",title:"A LITTLE PIECE OF US 🧩💚",body:"One more little challenge before the final question. Put our picture back together! Tap any two pieces to swap their places."},
+ {type:"compatibility",title:"HOW COMPATIBLE ARE WE? 💚",body:"Four little words. Four memories. Tap each box, write the first thing that comes to your mind, and then see what I thought of. Let’s see if our brains went to the same place. 🥹"},
  {type:"story",title:"ONE LAST CHALLENGE… 👀",body:"If you have come this far, you remember a lot about us, but all of those were easy ones. To unlock the secret message, you need to answer one last question, and trust me it's going to be quite difficult. So are you readyyyyy?"},
  {type:"quiz",title:"THE MOST IMPORTANT QUESTION EVER 💚🥹",body:"How much does CCL love RG? 🥹❤️",options:["A lot 🥰","Infinity ♾️","Moreeee than Infinityyyyyy ♾️🫶"],correct:2,good:"",bad:"Infinity is a good start… but is it really enough? Think again. ♾️❤️"}
 ];
@@ -153,6 +155,7 @@ function renderSlide(){
  let html=(current>0?'<button type="button" class="nav-back" id="back-slide">← Back to previous question 💭</button>':'')+'<h2>'+escapeHTML(s.title)+'</h2><p class="'+(s.type==='memory'?'memory':'')+'">'+escapeHTML(s.body)+'</p>';
  if(s.photo)html+=photo(s.photo);
  if(s.type==='city')html+='<div class="city-answer"><input id="city-answer" type="text" placeholder="Type the name of the city" autocomplete="off" aria-label="City name"><button type="button" id="check-city">Unlock this memory 💚</button></div><p class="memory" style="margin-top:24px">Can\'t find the image huh. To get this image, say &quot;I love you Rishi&quot; 3 times🥰. Also don\'t tell anyone else about this secret code🤫</p>';
+ if(s.type==='compatibility')html+='<div id="compat-area"></div>';
  if(s.type==='puzzle')html+='<div class="puzzle-wrap" id="puzzle-board">'+Array.from({length:9},(_,i)=>'<button type="button" class="puzzle-piece" data-slot="'+i+'" aria-label="Puzzle piece '+(i+1)+'"></button>').join('')+'</div><div class="puzzle-hint" id="puzzle-hint">Tap one piece, then another, to swap them. 💚</div>';
  if(s.type==='wheel')html+='<div class="wheel-wrap"><div class="wheel-pointer"></div><div class="wheel-disc" id="wheel-disc"><span class="wheel-label one">5 LAC KISSES 🙈</span><span class="wheel-label two">₹10,000 💸</span><span class="wheel-label three">A BRAND NEW SHIRT 👕</span><span class="wheel-label four">A BOX OF CHOCOLATES 🍫</span><span class="wheel-hub">💚</span></div></div><button id="spin-wheel" type="button">SPIN THE WHEEL 🎡</button>';
  if(s.options){
@@ -160,14 +163,47 @@ function renderSlide(){
  }
  content.innerHTML=html;
  if(s.type==='city'){const answer=document.getElementById('city-answer'),check=document.getElementById('check-city');const verify=()=>{if(answer.value.trim().toLowerCase()==='jaipur'){feedback.className='feedback';feedback.textContent="oh what a day it was, reaching exam centre before it even opened, your morning headache, giving CFA L3 together and then the best part - cranberry coffee at roastery coffee house🧋. Such good food and besttt company🥹....and remember we played that game on tissue paper. I'll never forget that experience. Also we wore same clothes on result day. What could be the odds 😂";answer.disabled=true;check.disabled=true;const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);}else{feedback.className='feedback wrong';feedback.textContent='Not quite! Think of the city where this lovely memory happened. 🌸';}};check.addEventListener('click',verify);answer.addEventListener('keydown',e=>{if(e.key==='Enter')verify();});}
+ if(s.type==='compatibility')initCompatibility();
  if(s.type==='puzzle')initPuzzle();
  if(s.type==='wheel'){let turns=0;document.getElementById('spin-wheel').addEventListener('click',()=>{turns++;const disc=document.getElementById('wheel-disc');disc.style.transform='rotate('+(turns*3600)+'deg)';const spin=document.getElementById('spin-wheel');spin.disabled=true;spin.textContent='SPINNING... 🎡';setTimeout(()=>{feedback.className='feedback';feedback.textContent='Oh it seems RG owes CCL 5 lac kisses 🙈🙈🙈. Seems like someone is in huge debt! 💸 I think you should start paying it back ASAP 😉❤️';spin.disabled=false;spin.textContent='SPIN AGAIN 🎡 (THE FATE IS SEALED 😎)';},9100);});}
  const backButton=document.getElementById('back-slide');if(backButton)backButton.addEventListener('click',()=>{current--;renderSlide()});
  if(s.options){
   content.querySelectorAll('[data-option]').forEach(btn=>btn.addEventListener('click',()=>choose(Number(btn.dataset.option))));
- }else{
+ }else if(s.type!=='compatibility'){
   const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);
  }
+}
+const compatibilityItems=[
+ {word:"Pigeon",art:"🕊️",mine:"Rooftop tea with pigeon talks"},
+ {word:"Pav Bhaji",art:"🍛",mine:"CA Inter direct tax exam"},
+ {word:"Prank",art:"😂",mine:"Pant fatne vala prank"},
+ {word:"Our Song",art:"🎶",mine:"Tu aisa kaise hai"}
+];
+const compatibilityAnswers={};
+function initCompatibility(){
+ const area=document.getElementById('compat-area');
+ let active=-1;
+ function paint(){
+  if(active<0){
+   area.innerHTML='<div class="compat-grid">'+compatibilityItems.map((item,i)=>'<button type="button" class="compat-tile '+(compatibilityAnswers[i]?'done':'')+'" data-compat="'+i+'"><span class="art">'+item.art+'</span><strong>'+item.word+'</strong><span class="compat-done">'+(compatibilityAnswers[i]?'✓ Memory unlocked':'Tap to open')+'</span></button>').join('')+'</div><p class="compat-done">'+Object.keys(compatibilityAnswers).length+' of 4 memories revealed 💚</p>';
+   area.querySelectorAll('[data-compat]').forEach(btn=>btn.addEventListener('click',()=>{active=Number(btn.dataset.compat);paint();}));
+   if(Object.keys(compatibilityAnswers).length===4){const next=document.createElement('button');next.textContent='Continue → 💚';next.addEventListener('click',advance);actions.appendChild(next);}
+   return;
+  }
+  const item=compatibilityItems[active];
+  area.innerHTML='<div class="compat-panel"><div class="art">'+item.art+'</div><h3>'+item.word+'</h3><p>What is the first memory or incident that comes to your mind?</p><textarea id="compat-input" placeholder="Write whatever comes to your mind..."></textarea><button type="button" id="compat-submit">Reveal what I thought 💌</button><div id="compat-result"></div><button type="button" class="secondary" id="compat-back" style="margin-top:10px">← Back to all four words</button></div>';
+  const input=document.getElementById('compat-input');
+  document.getElementById('compat-submit').addEventListener('click',()=>{
+   if(!input.value.trim()){input.focus();return;}
+   compatibilityAnswers[active]=input.value.trim();
+   document.getElementById('compat-result').innerHTML='<div class="compat-reveal"><strong>What I thought of 💚</strong><p>'+escapeHTML(item.mine)+'</p></div><p class="compat-done">Did we think of the same moment? 🥹</p>';
+   document.getElementById('compat-submit').disabled=true;
+   input.disabled=true;
+   document.getElementById('compat-back').textContent='Back to the four words';
+  });
+  document.getElementById('compat-back').addEventListener('click',()=>{active=-1;actions.innerHTML='';paint();});
+ }
+ paint();
 }
 function initPuzzle(){
  const order=[4,1,8,0,6,2,7,3,5];let selected=null,solved=false;
