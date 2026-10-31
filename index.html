@@ -251,7 +251,7 @@ function choose(index){
   feedback.className='feedback wrong';feedback.textContent=s.bad||'Not quite! Try again 💚';
  }
 }
-function advance(){if(current<slides.length-1){current++;renderSlide();}else{content.innerHTML='<p>More memories and surprises are on their way.</p>';actions.innerHTML='';const back=document.createElement('button');back.className='nav-back';back.textContent='← Back to previous question';back.addEventListener('click',()=>{current=slides.length-1;renderSlide()});actions.appendChild(back);const restart=document.createElement('button');restart.className='secondary';restart.textContent='Replay the quest';restart.addEventListener('click',()=>{current=0;renderSlide()});actions.appendChild(restart);}}
+function advance(){if(current<slides.length-1){current++;renderSlide();}else{content.innerHTML='<h2>Thank you for participating 💚</h2>';actions.innerHTML='';const back=document.createElement('button');back.className='nav-back';back.textContent='← Back to previous question';back.addEventListener('click',()=>{current=slides.length-1;renderSlide()});actions.appendChild(back);const restart=document.createElement('button');restart.className='secondary';restart.textContent='Replay the quest';restart.addEventListener('click',()=>{current=0;renderSlide()});actions.appendChild(restart);}}
 </script>
 </body>
 </html>
